@@ -7,7 +7,7 @@ import com.l_george.test_cofee.di.DaggerAppComponent
 
 
 class CoffeeApp : Application() {
-    private lateinit var component: AppComponent
+     lateinit var component: AppComponent
     override fun onCreate() {
         component = DaggerAppComponent.builder()
             .appModule(AppModule())
