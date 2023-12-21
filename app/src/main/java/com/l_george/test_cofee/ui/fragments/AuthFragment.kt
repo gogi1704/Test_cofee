@@ -15,6 +15,8 @@ import com.l_george.test_cofee.data.models.UserModel
 import com.l_george.test_cofee.databinding.FragmentAuthBinding
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModel
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModelFactory
+import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModel
+import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModelFactory
 import javax.inject.Inject
 
 class AuthFragment : Fragment() {
@@ -24,10 +26,16 @@ class AuthFragment : Fragment() {
     lateinit var authViewModelFactory: AuthViewModelFactory
     private lateinit var authViewModel: AuthViewModel
 
+    @Inject
+    lateinit var locationViewModelFactory: LocationViewModelFactory
+    private lateinit var locationViewModel: LocationViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireContext().applicationContext as CoffeeApp).component.inject(this)
         authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class.java]
+
+        locationViewModel = ViewModelProvider(this, locationViewModelFactory)[LocationViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -35,6 +43,8 @@ class AuthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAuthBinding.inflate(layoutInflater, container, false)
+
+         locationViewModel.getLocation()
 
         with(binding) {
 
