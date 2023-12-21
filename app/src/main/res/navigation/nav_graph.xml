@@ -9,5 +9,14 @@
         android:id="@+id/authFragment"
         android:name="com.l_george.test_cofee.ui.fragments.AuthFragment"
         android:label="fragment_auth"
-        tools:layout="@layout/fragment_auth" />
+        tools:layout="@layout/fragment_auth" >
+        <action
+            android:id="@+id/action_authFragment_to_coffeeListFragment"
+            app:destination="@id/coffeeListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coffeeListFragment"
+        android:name="com.l_george.test_cofee.ui.fragments.CoffeeListFragment"
+        android:label="fragment_coffee_list"
+        tools:layout="@layout/fragment_coffee_list" />
 </navigation>

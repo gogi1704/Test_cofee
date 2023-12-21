@@ -11,15 +11,14 @@ class AuthViewModel @Inject constructor(private val repository: AuthRepository) 
 
     fun register(userModel: UserModel) {
         viewModelScope.launch {
-            val auth = repository.register(userModel)
-            auth
+            repository.register(userModel)
         }
     }
 
     fun logIn(userModel: UserModel) {
         viewModelScope.launch {
-            val auth = repository.login(userModel)
-            auth
+            repository.login(userModel)
+
         }
 
     }

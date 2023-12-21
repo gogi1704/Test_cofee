@@ -10,7 +10,7 @@ class CoffeeApp : Application() {
      lateinit var component: AppComponent
     override fun onCreate() {
         component = DaggerAppComponent.builder()
-            .appModule(AppModule())
+            .appModule(AppModule(this))
             .build()
         super.onCreate()
     }

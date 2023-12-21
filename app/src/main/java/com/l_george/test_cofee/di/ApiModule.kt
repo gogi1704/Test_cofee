@@ -1,5 +1,6 @@
 package com.l_george.test_cofee.di
 
+import com.l_george.test_cofee.AppAuth
 import com.l_george.test_cofee.api.ApiService
 import dagger.Module
 import dagger.Provides
@@ -25,11 +26,18 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient = OkHttpClient()
-        .newBuilder()
-        .addInterceptor(interceptor)
-        .callTimeout(300, TimeUnit.SECONDS)
-        .build()
+    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor, auth: AppAuth): OkHttpClient =
+        OkHttpClient()
+            .newBuilder()
+            .addInterceptor(interceptor)
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .addHeader("token", auth.token ?: "")
+                    .build()
+                return@addInterceptor chain.proceed(request)
+            }
+            .callTimeout(300, TimeUnit.SECONDS)
+            .build()
 
     @Provides
     @Singleton
