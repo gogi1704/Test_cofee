@@ -32,7 +32,7 @@ class ApiModule {
             .addInterceptor(interceptor)
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
-                    .addHeader("token", auth.token ?: "")
+                    .addHeader("Authorization", ("Bearer " + auth.token))
                     .build()
                 return@addInterceptor chain.proceed(request)
             }
