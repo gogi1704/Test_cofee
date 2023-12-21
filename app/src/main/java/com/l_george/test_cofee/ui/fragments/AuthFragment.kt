@@ -20,7 +20,7 @@ class AuthFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireContext().applicationContext as CoffeeApp).component.injectAuthFragment(this)
+        (requireContext().applicationContext as CoffeeApp).component.inject(this)
         authViewModel = ViewModelProvider(this , authViewModelFactory)[AuthViewModel::class.java]
     }
 
