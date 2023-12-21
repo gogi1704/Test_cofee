@@ -9,21 +9,19 @@ import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(private val repository: AuthRepository) : ViewModel() {
 
-    fun register(){
+    fun register(userModel: UserModel) {
         viewModelScope.launch {
-            val auth = repository.register(UserModel("vasua" , "12345"))
+            val auth = repository.register(userModel)
             auth
         }
     }
 
-    fun logIn(){
+    fun logIn(userModel: UserModel) {
         viewModelScope.launch {
-            val auth = repository.login(UserModel("vasua" , "12345"))
+            val auth = repository.login(userModel)
             auth
         }
 
     }
-    init {
-      logIn()
-    }
+
 }
