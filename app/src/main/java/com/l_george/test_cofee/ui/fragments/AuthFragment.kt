@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.l_george.test_cofee.R
 import com.l_george.test_cofee.app.CoffeeApp
 import com.l_george.test_cofee.data.models.UserModel
@@ -35,7 +37,9 @@ class AuthFragment : Fragment() {
         (requireContext().applicationContext as CoffeeApp).component.inject(this)
         authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class.java]
 
-        locationViewModel = ViewModelProvider(this, locationViewModelFactory)[LocationViewModel::class.java]
+        locationViewModel =
+            ViewModelProvider(this, locationViewModelFactory)[LocationViewModel::class.java]
+
     }
 
     override fun onCreateView(
@@ -43,8 +47,9 @@ class AuthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAuthBinding.inflate(layoutInflater, container, false)
+        (requireActivity() as MainActivity).isButtonBackVisible(false)
 
-         locationViewModel.getLocation()
+        locationViewModel.getLocation()
 
         with(binding) {
 
@@ -107,6 +112,13 @@ class AuthFragment : Fragment() {
                     } else {
                         makeToast(getString(R.string.checkAll))
                     }
+                }
+            }
+
+
+            authViewModel.isAuthLiveData.observe(viewLifecycleOwner) {
+                if (it != null && it) {
+                    findNavController().navigate(R.id.action_authFragment_to_coffeeListFragment)
                 }
             }
         }
