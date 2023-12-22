@@ -28,17 +28,12 @@ class AuthFragment : Fragment() {
     lateinit var authViewModelFactory: AuthViewModelFactory
     private lateinit var authViewModel: AuthViewModel
 
-    @Inject
-    lateinit var locationViewModelFactory: LocationViewModelFactory
-    private lateinit var locationViewModel: LocationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireContext().applicationContext as CoffeeApp).component.inject(this)
         authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class.java]
 
-        locationViewModel =
-            ViewModelProvider(this, locationViewModelFactory)[LocationViewModel::class.java]
 
     }
 
@@ -49,7 +44,6 @@ class AuthFragment : Fragment() {
         binding = FragmentAuthBinding.inflate(layoutInflater, container, false)
         (requireActivity() as MainActivity).isButtonBackVisible(false)
 
-        locationViewModel.getLocation()
 
         with(binding) {
 

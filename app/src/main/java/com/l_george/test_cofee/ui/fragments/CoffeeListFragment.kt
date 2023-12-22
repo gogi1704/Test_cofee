@@ -45,6 +45,7 @@ class CoffeeListFragment : Fragment() {
         binding = FragmentCoffeeListBinding.inflate(layoutInflater, container, false)
         (requireActivity() as MainActivity).isButtonBackVisible(true)
 
+        locationViewModel.getLocation()
 
         requireActivity().findViewById<ImageButton>(R.id.button_back).apply {
             setOnClickListener {
@@ -54,8 +55,20 @@ class CoffeeListFragment : Fragment() {
             visibility = View.VISIBLE
         }
 
-
         return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(binding) {
+
+
+            locationViewModel.listCoffeeShopLiveData.observe(viewLifecycleOwner) {
+                it
+            }
+        }
     }
 
 
