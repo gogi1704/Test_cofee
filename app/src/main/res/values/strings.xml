@@ -13,4 +13,5 @@
     <string name="checkAll">проверьте корректность введенных данных</string>
     <string name="in_map">На карте</string>
     <string name="coffee_title">Ближайшие кофейни</string>
+    <string name="map_title">Карта</string>
 </resources>

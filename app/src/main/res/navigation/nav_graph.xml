@@ -18,5 +18,14 @@
         android:id="@+id/coffeeListFragment"
         android:name="com.l_george.test_cofee.ui.fragments.CoffeeListFragment"
         android:label="fragment_coffee_list"
-        tools:layout="@layout/fragment_coffee_list" />
+        tools:layout="@layout/fragment_coffee_list" >
+        <action
+            android:id="@+id/action_coffeeListFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.l_george.test_cofee.ui.fragments.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>

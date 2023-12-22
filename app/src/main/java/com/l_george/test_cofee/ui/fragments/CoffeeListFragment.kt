@@ -48,7 +48,7 @@ class CoffeeListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCoffeeListBinding.inflate(layoutInflater, container, false)
-        (requireActivity() as MainActivity).topBarSettings(true , getString(R.string.coffee_title))
+        (requireActivity() as MainActivity).topBarSettings(true, getString(R.string.coffee_title))
 
         locationViewModel.getLocation()
 
@@ -72,6 +72,10 @@ class CoffeeListFragment : Fragment() {
 
             locationViewModel.listCoffeeShopLiveData.observe(viewLifecycleOwner) {
                 adapter.submitList(it)
+            }
+
+            buttonToMap.setOnClickListener {
+                findNavController().navigate(R.id.action_coffeeListFragment_to_mapFragment)
             }
         }
     }

@@ -12,11 +12,11 @@
         tools:listitem="@layout/item_coffee_layout"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/button_complete"
+        app:layout_constraintBottom_toTopOf="@+id/button_to_map"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_complete"
+        android:id="@+id/button_to_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
