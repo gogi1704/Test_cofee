@@ -10,7 +10,7 @@
     <string name="check_email_error">проверьте e-mail</string>
     <string name="check_pass_error">мин 6 символов</string>
     <string name="check_pass_repeat">пароли не совпадают</string>
-    <string name="checkAll">проверьте правильность введенных данных</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="checkAll">проверьте корректность введенных данных</string>
+    <string name="in_map">На карте</string>
+    <string name="coffee_title">Ближайшие кофейни</string>
 </resources>

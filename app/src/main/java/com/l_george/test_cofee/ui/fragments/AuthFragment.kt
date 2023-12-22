@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -17,8 +16,6 @@ import com.l_george.test_cofee.data.models.UserModel
 import com.l_george.test_cofee.databinding.FragmentAuthBinding
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModel
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModelFactory
-import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModel
-import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModelFactory
 import javax.inject.Inject
 
 class AuthFragment : Fragment() {
@@ -27,14 +24,13 @@ class AuthFragment : Fragment() {
     @Inject
     lateinit var authViewModelFactory: AuthViewModelFactory
     private lateinit var authViewModel: AuthViewModel
-
+    private lateinit var activity: MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireContext().applicationContext as CoffeeApp).component.inject(this)
         authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class.java]
-
-
+        activity = requireActivity() as MainActivity
     }
 
     override fun onCreateView(
@@ -42,7 +38,7 @@ class AuthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAuthBinding.inflate(layoutInflater, container, false)
-        (requireActivity() as MainActivity).isButtonBackVisible(false)
+        registerMode()
 
 
         with(binding) {
@@ -127,16 +123,16 @@ class AuthFragment : Fragment() {
             textInputLayoutPasswordRepeat.visibility = View.VISIBLE
             textRepeatPass.visibility = View.VISIBLE
             buttonComplete.text = getString(R.string.register)
-            requireActivity().findViewById<TextView>(R.id.text_title).text =
-                getString(R.string.register)
+            activity.topBarSettings(false, getString(R.string.register))
+
 
         }
     }
 
     private fun loginMode() {
         with(binding) {
-            requireActivity().findViewById<TextView>(R.id.text_title).text =
-                getString(R.string.login)
+            activity.topBarSettings(false, getString(R.string.login))
+
             buttonLogin.text = getString(R.string.register)
             buttonComplete.text = getString(R.string.login)
             textInputLayoutPasswordRepeat.visibility = View.GONE

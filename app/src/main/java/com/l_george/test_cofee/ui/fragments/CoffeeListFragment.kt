@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.l_george.test_cofee.R
 import com.l_george.test_cofee.app.CoffeeApp
 import com.l_george.test_cofee.databinding.FragmentCoffeeListBinding
+import com.l_george.test_cofee.ui.adapters.CoffeeShopAdapter
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModel
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModelFactory
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModel
@@ -28,6 +29,8 @@ class CoffeeListFragment : Fragment() {
     @Inject
     lateinit var locationViewModelFactory: LocationViewModelFactory
     private lateinit var locationViewModel: LocationViewModel
+
+    private lateinit var adapter: CoffeeShopAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,6 +39,8 @@ class CoffeeListFragment : Fragment() {
 
         locationViewModel =
             ViewModelProvider(this, locationViewModelFactory)[LocationViewModel::class.java]
+
+        adapter = CoffeeShopAdapter()
     }
 
     override fun onCreateView(
@@ -43,14 +48,14 @@ class CoffeeListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCoffeeListBinding.inflate(layoutInflater, container, false)
-        (requireActivity() as MainActivity).isButtonBackVisible(true)
+        (requireActivity() as MainActivity).topBarSettings(true , getString(R.string.coffee_title))
 
         locationViewModel.getLocation()
 
         requireActivity().findViewById<ImageButton>(R.id.button_back).apply {
             setOnClickListener {
                 authViewModel.logOut()
-                findNavController().navigate(R.id.authFragment)
+                findNavController().navigateUp()
             }
             visibility = View.VISIBLE
         }
@@ -63,10 +68,10 @@ class CoffeeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-
+            coffeeRecycler.adapter = adapter
 
             locationViewModel.listCoffeeShopLiveData.observe(viewLifecycleOwner) {
-                it
+                adapter.submitList(it)
             }
         }
     }

@@ -11,7 +11,9 @@ class LocationsRepository @Inject constructor(private val api: ApiService) {
         val response = api.getLocations()
         if (response.isSuccessful) {
             return response.body() ?: throw Exception()
-        } else {
+        } else if (response.code() == 401) {
+            return listOf() // TODO navigate to auth
+        }else{
             throw Exception()
         }
 
