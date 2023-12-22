@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -9,17 +12,23 @@ android {
     namespace = "com.l_george.test_cofee"
     compileSdk = 34
 
+    val properties = Properties()
+    properties.load(FileInputStream(rootProject.file("local.properties")))
+
     defaultConfig {
         applicationId = "com.l_george.test_cofee"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", "\"${properties["MAP_KIT_API_KEY"]}\"")
+
     }
 
     buildTypes {
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -36,10 +45,15 @@ android {
         jvmTarget = "1.8"
     }
 
-    buildFeatures{
+    buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
+
+
 }
+
+
 
 dependencies {
     val lifecycle_version = "2.6.2"
@@ -77,4 +91,7 @@ dependencies {
     //navigation
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    //Map kit
+    implementation("com.yandex.android:maps.mobile:4.4.0-lite")
 }
