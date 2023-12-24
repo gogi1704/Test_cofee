@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.l_george.test_cofee.data.models.CoffeeShopModel
 import com.l_george.test_cofee.data.repository.LocationsRepository
+import com.yandex.mapkit.geometry.Point
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +23,12 @@ class LocationViewModel @Inject constructor(private val repository: LocationsRep
 
     fun getLocation() {
         viewModelScope.launch {
-            listCoffeeShops = repository.getLocations()
+            val list = repository.getLocations()
+            listCoffeeShops = list
         }
+    }
+
+    init {
+        getLocation()
     }
 }

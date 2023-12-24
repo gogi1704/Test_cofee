@@ -14,4 +14,7 @@
     <string name="in_map">На карте</string>
     <string name="coffee_title">Ближайшие кофейни</string>
     <string name="map_title">Карта</string>
+    <string name="coffee_menu_title">Ознакомиться с меню кофейни ? </string>
+    <string name="yes">Да </string>
+    <string name="dismiss">Отмена </string>
 </resources>

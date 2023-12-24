@@ -50,7 +50,6 @@ class CoffeeListFragment : Fragment() {
         binding = FragmentCoffeeListBinding.inflate(layoutInflater, container, false)
         (requireActivity() as MainActivity).topBarSettings(true, getString(R.string.coffee_title))
 
-        locationViewModel.getLocation()
 
         requireActivity().findViewById<ImageButton>(R.id.button_back).apply {
             setOnClickListener {
