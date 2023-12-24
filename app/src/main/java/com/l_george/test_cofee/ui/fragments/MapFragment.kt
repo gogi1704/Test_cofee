@@ -1,6 +1,11 @@
 package com.l_george.test_cofee.ui.fragments
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -32,9 +39,7 @@ class MapFragment : Fragment() {
     private lateinit var binding: FragmentMapBinding
     private lateinit var activity: MainActivity
     private lateinit var mapView: MapView
-    private lateinit var imageProvider: ImageProvider
     private lateinit var collections: MapObjectCollection
-    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     @Inject
     lateinit var locationViewModelFactory: LocationViewModelFactory
@@ -51,25 +56,8 @@ class MapFragment : Fragment() {
         MapKitFactory.initialize(requireContext())
         activity = requireActivity() as MainActivity
         (requireActivity().applicationContext as CoffeeApp).component.inject(this)
-        imageProvider = ImageProvider.fromResource(requireContext(), R.drawable.icon_point)
         locationViewModel =
             ViewModelProvider(this, locationViewModelFactory)[LocationViewModel::class.java]
-//        fusedLocation = LocationServices.getFusedLocationProviderClient(requireActivity())
-//        requestPermissionLauncher = registerForActivityResult(
-//            ActivityResultContracts.RequestPermission()
-//        ) { isGranted ->
-//            if (isGranted) {
-//               ///TODO
-//            } else {
-//                Toast.makeText(
-//                    requireContext(),
-//                    "Sorry, but i need a grant!",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//
-//
-//        }
 
     }
 
@@ -93,7 +81,7 @@ class MapFragment : Fragment() {
             for (coffeeShop in coffeeList) {
                 collections.addPlacemark().apply {
                     geometry = coffeeShop.point
-                    setIcon(imageProvider)
+                    setIcon(ImageProvider.fromBitmap(getPlaceMarkIcon(coffeeShop.name)))
                     addTapListener(object : MapObjectTapListener {
                         override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
                             createDialog(coffeeShop.name, coffeeShop.id)
@@ -119,33 +107,12 @@ class MapFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        checkPermissions()
-//        requestPermissionLauncher = getPermissionLauncher()
-    }
 
     override fun onStop() {
         MapKitFactory.getInstance().onStop()
         super.onStop()
     }
 
-//    private fun checkPermissions() {
-//        when (PackageManager.PERMISSION_GRANTED
-//        ) {
-//            ContextCompat.checkSelfPermission(
-//                requireContext(),
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            ) -> {
-//               // todo
-//            }
-//
-//            else -> {
-//                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-//            }
-//        }
-//
-//    }
 
     private fun createDialog(title: String, coffeeShopId: Int) {
         AlertDialog.Builder(requireContext())
@@ -160,6 +127,24 @@ class MapFragment : Fragment() {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun getPlaceMarkIcon(title:String):Bitmap{
+        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.icon_point)
+        val bitmap = Bitmap.createBitmap(150, 200, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        val paint = Paint().apply {
+            color = Color.BLACK
+            textSize = 30f
+            textAlign = Paint.Align.CENTER
+            typeface = ResourcesCompat.getFont(requireContext(), R.font.roboto_black)
+        }
+
+        drawable?.setBounds(0, 0, 150, 150)
+        drawable?.draw(canvas)
+        canvas.drawText(title, (canvas.width / 2).toFloat(), canvas.height.toFloat()-20, paint)
+
+        return bitmap
     }
 
 
