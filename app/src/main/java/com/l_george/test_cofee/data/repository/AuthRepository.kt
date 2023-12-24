@@ -1,7 +1,7 @@
 package com.l_george.test_cofee.data.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.l_george.test_cofee.AppAuth
+import com.l_george.test_cofee.auth.AppAuth
 import com.l_george.test_cofee.api.ApiService
 import com.l_george.test_cofee.data.models.UserModel
 import javax.inject.Inject

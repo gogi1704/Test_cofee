@@ -1,4 +1,4 @@
-package com.l_george.test_cofee.ui.adapters
+package com.l_george.test_cofee.ui.adapters.coffeeShopAdapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.l_george.test_cofee.data.models.CoffeeShopModel

@@ -23,6 +23,7 @@ import com.l_george.test_cofee.app.CoffeeApp
 import com.l_george.test_cofee.databinding.FragmentMapBinding
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModel
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModelFactory
+import com.l_george.test_cofee.utils.BUNDLE_LOCATION_ID
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
@@ -84,7 +85,11 @@ class MapFragment : Fragment() {
                     setIcon(ImageProvider.fromBitmap(getPlaceMarkIcon(coffeeShop.name)))
                     addTapListener(object : MapObjectTapListener {
                         override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
-                            createDialog(coffeeShop.name, coffeeShop.id)
+                            findNavController().navigate(
+                                R.id.action_mapFragment_to_menuFragment,
+                                Bundle().apply {
+                                    putInt(BUNDLE_LOCATION_ID, coffeeShop.id)
+                                })
                             return true
                         }
                     })
@@ -129,7 +134,7 @@ class MapFragment : Fragment() {
             .show()
     }
 
-    private fun getPlaceMarkIcon(title:String):Bitmap{
+    private fun getPlaceMarkIcon(title: String): Bitmap {
         val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.icon_point)
         val bitmap = Bitmap.createBitmap(150, 200, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
@@ -142,7 +147,7 @@ class MapFragment : Fragment() {
 
         drawable?.setBounds(0, 0, 150, 150)
         drawable?.draw(canvas)
-        canvas.drawText(title, (canvas.width / 2).toFloat(), canvas.height.toFloat()-20, paint)
+        canvas.drawText(title, (canvas.width / 2).toFloat(), canvas.height.toFloat() - 20, paint)
 
         return bitmap
     }

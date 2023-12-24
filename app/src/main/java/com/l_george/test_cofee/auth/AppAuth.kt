@@ -1,4 +1,4 @@
-package com.l_george.test_cofee
+package com.l_george.test_cofee.auth
 
 import android.content.Context
 

@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.l_george.test_cofee.R
 import com.l_george.test_cofee.app.CoffeeApp
 import com.l_george.test_cofee.databinding.FragmentCoffeeListBinding
-import com.l_george.test_cofee.ui.adapters.CoffeeShopAdapter
+import com.l_george.test_cofee.ui.adapters.coffeeShopAdapter.CoffeeShopAdapter
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModel
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModelFactory
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModel

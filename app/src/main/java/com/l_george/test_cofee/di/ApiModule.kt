@@ -1,6 +1,6 @@
 package com.l_george.test_cofee.di
 
-import com.l_george.test_cofee.AppAuth
+import com.l_george.test_cofee.auth.AppAuth
 import com.l_george.test_cofee.api.ApiService
 import dagger.Module
 import dagger.Provides

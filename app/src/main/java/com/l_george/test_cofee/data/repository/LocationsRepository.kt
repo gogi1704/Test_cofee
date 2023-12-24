@@ -18,4 +18,6 @@ class LocationsRepository @Inject constructor(private val api: ApiService) {
         }
 
     }
+
+
 }
