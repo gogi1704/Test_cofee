@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.l_george.test_cofee.R
@@ -55,6 +56,7 @@ class CoffeeListFragment : Fragment() {
                     })
             }
         })
+
     }
 
     override fun onCreateView(
@@ -101,7 +103,17 @@ class CoffeeListFragment : Fragment() {
 
 
         }
+
+        val callBack = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                authViewModel.logOut()
+                findNavController().navigateUp()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callBack)
     }
+
 
 }
 
