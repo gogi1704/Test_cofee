@@ -57,7 +57,12 @@ class PayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         menuViewModel.bagListLiveData.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            if (it.isNotEmpty()){
+                binding.finalText.text = getString(R.string.pay_text)
+                adapter.submitList(it)
+            }else{
+                binding.finalText.text = getString(R.string.pay_text_empty)
+            }
         }
     }
 

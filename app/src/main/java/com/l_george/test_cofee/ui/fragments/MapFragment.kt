@@ -23,6 +23,7 @@ import com.l_george.test_cofee.app.CoffeeApp
 import com.l_george.test_cofee.databinding.FragmentMapBinding
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModel
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModelFactory
+import com.l_george.test_cofee.utils.ANIMATION_MAP_DURATION
 import com.l_george.test_cofee.utils.AuthError
 import com.l_george.test_cofee.utils.BUNDLE_LOCATION_ID
 import com.l_george.test_cofee.utils.makeToast
@@ -105,7 +106,7 @@ class MapFragment : Fragment() {
                         1f,
                         1f,
                     ),
-                    Animation(Animation.Type.SMOOTH, 2f),
+                    Animation(Animation.Type.SMOOTH, ANIMATION_MAP_DURATION),
                     null
                 )
             }

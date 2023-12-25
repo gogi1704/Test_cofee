@@ -11,6 +11,10 @@
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth" >
         <action
+            app:enterAnim="@anim/in_right"
+            app:exitAnim="@anim/out_left"
+            app:popEnterAnim="@anim/in_left"
+            app:popExitAnim="@anim/out_right"
             android:id="@+id/action_authFragment_to_coffeeListFragment"
             app:destination="@id/coffeeListFragment" />
     </fragment>
@@ -20,9 +24,17 @@
         android:label="fragment_coffee_list"
         tools:layout="@layout/fragment_coffee_list" >
         <action
+            app:enterAnim="@anim/in_right"
+            app:exitAnim="@anim/out_left"
+            app:popEnterAnim="@anim/in_left"
+            app:popExitAnim="@anim/out_right"
             android:id="@+id/action_coffeeListFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
         <action
+            app:enterAnim="@anim/in_right"
+            app:exitAnim="@anim/out_left"
+            app:popEnterAnim="@anim/in_left"
+            app:popExitAnim="@anim/out_right"
             android:id="@+id/action_coffeeListFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
     </fragment>
@@ -32,6 +44,10 @@
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
         <action
+            app:enterAnim="@anim/in_right"
+            app:exitAnim="@anim/out_left"
+            app:popEnterAnim="@anim/in_left"
+            app:popExitAnim="@anim/out_right"
             android:id="@+id/action_mapFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
     </fragment>
@@ -41,6 +57,10 @@
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
+            app:enterAnim="@anim/in_right"
+            app:exitAnim="@anim/out_left"
+            app:popEnterAnim="@anim/in_left"
+            app:popExitAnim="@anim/out_right"
             android:id="@+id/action_menuFragment_to_payFragment"
             app:destination="@id/payFragment" />
     </fragment>

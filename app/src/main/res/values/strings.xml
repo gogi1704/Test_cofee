@@ -23,6 +23,7 @@
     <string name="menu">Меню</string>
     <string name="go_to_pay">Перейти к оплате</string>
     <string name="pay_text">Время ожидания заказа 15 минут! Спасибо, что выбрали нас!</string>
+    <string name="pay_text_empty">Список товаров пуст !</string>
     <string name="pay">Оплатить</string>
     <string name="pay_title">Ваш заказ</string>
     <string name="rub">руб</string>
