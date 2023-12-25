@@ -19,7 +19,8 @@
             android:layout_height="140dp"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/baseline_arrow_back_ios_new_24" />
+            tools:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:importantForAccessibility="no" />
 
         <TextView
             android:id="@+id/item_name"
