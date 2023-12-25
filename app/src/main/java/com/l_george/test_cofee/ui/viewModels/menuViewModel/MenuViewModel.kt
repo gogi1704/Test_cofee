@@ -17,6 +17,13 @@ class MenuViewModel @Inject constructor(private val menuRepository: MenuReposito
         }
     val menuListLiveData = MutableLiveData(menuList)
 
+    private var bagList = menuRepository.getResult()
+        set(value) {
+            field = value
+            bagListLiveData.value = value
+        }
+    val bagListLiveData = MutableLiveData(bagList)
+
     fun getMenuById(id: Int) {
         viewModelScope.launch {
             menuList = menuRepository.getMenuByLocationId(id)
@@ -26,16 +33,16 @@ class MenuViewModel @Inject constructor(private val menuRepository: MenuReposito
 
     fun addToBag(menuModel: MenuModel) {
         menuRepository.addToBag(menuModel)
+        bagList = menuRepository.getResult()
     }
 
     fun removeFromBag(menuModel: MenuModel) {
         menuRepository.removeFromBag(menuModel)
+        bagList = menuRepository.getResult()
     }
 
-    fun getResult(): List<Pair<MenuModel, Int>> {
-        val i = menuRepository.getResult()
-        i
-        return menuRepository.getResult()
+    fun resetBag() {
+       menuRepository.resetBag()
     }
 
 }

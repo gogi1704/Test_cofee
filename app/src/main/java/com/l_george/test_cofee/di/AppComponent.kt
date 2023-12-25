@@ -5,15 +5,17 @@ import com.l_george.test_cofee.ui.fragments.CoffeeListFragment
 import com.l_george.test_cofee.ui.fragments.MainActivity
 import com.l_george.test_cofee.ui.fragments.MapFragment
 import com.l_george.test_cofee.ui.fragments.MenuFragment
+import com.l_george.test_cofee.ui.fragments.PayFragment
 import dagger.Component
 import javax.inject.Singleton
 
-@Component(modules = [AppModule::class , RepositoryModule::class , ApiModule::class])
+@Component(modules = [AppModule::class, RepositoryModule::class, ApiModule::class])
 @Singleton
 interface AppComponent {
-   fun inject(authFragment: AuthFragment)
-   fun inject(activity: MainActivity)
-   fun inject(coffeeFragment: CoffeeListFragment)
-   fun inject(coffeeFragment: MapFragment)
-   fun inject(menuFragment: MenuFragment)
+    fun inject(authFragment: AuthFragment)
+    fun inject(activity: MainActivity)
+    fun inject(coffeeFragment: CoffeeListFragment)
+    fun inject(coffeeFragment: MapFragment)
+    fun inject(menuFragment: MenuFragment)
+    fun inject(payFragment: PayFragment)
 }

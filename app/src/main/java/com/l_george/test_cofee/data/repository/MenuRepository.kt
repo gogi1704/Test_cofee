@@ -61,4 +61,8 @@ class MenuRepository @Inject constructor(private val apiService: ApiService) {
 
     }
 
+    fun resetBag(){
+        bag = mutableListOf()
+    }
+
 }

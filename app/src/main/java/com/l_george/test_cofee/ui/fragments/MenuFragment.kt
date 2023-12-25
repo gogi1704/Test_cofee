@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.l_george.test_cofee.R
 import com.l_george.test_cofee.app.CoffeeApp
 import com.l_george.test_cofee.data.models.MenuModel
@@ -29,7 +31,7 @@ class MenuFragment : Fragment() {
         super.onCreate(savedInstanceState)
         (requireActivity().applicationContext as CoffeeApp).component.inject(this)
         menuViewModel = ViewModelProvider(this, menuViewModelFactory)[MenuViewModel::class.java]
-        adapter = MenuAdapter(object :MenuClickListener{
+        adapter = MenuAdapter(object : MenuClickListener {
             override fun addToBag(menuModel: MenuModel) {
                 menuViewModel.addToBag(menuModel)
             }
@@ -47,6 +49,13 @@ class MenuFragment : Fragment() {
         binding = FragmentMenuBinding.inflate(layoutInflater, container, false)
         menuViewModel.getMenuById(arguments?.getInt(BUNDLE_LOCATION_ID)!!)
         (requireActivity() as MainActivity).topBarSettings(true, getString(R.string.menu))
+        requireActivity().findViewById<ImageButton>(R.id.button_back).apply {
+            setOnClickListener {
+                findNavController().navigateUp()
+            }
+            visibility = View.VISIBLE
+        }
+        menuViewModel.resetBag()
         return binding.root
     }
 
@@ -60,7 +69,7 @@ class MenuFragment : Fragment() {
             }
 
             buttonToPay.setOnClickListener {
-                menuViewModel.getResult()
+                findNavController().navigate(R.id.action_menuFragment_to_payFragment)
             }
         }
     }
