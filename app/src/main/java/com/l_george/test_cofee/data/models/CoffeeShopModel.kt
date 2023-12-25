@@ -5,5 +5,6 @@ import com.yandex.mapkit.geometry.Point
 data class CoffeeShopModel(
     val id: Int,
     val name: String,
-    val point: Point
+    val point: Point,
+    val distanceFromMe:String? = "0 km"
 )

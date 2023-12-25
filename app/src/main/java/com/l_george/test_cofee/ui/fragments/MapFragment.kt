@@ -73,6 +73,7 @@ class MapFragment : Fragment() {
             }
         }
 
+        locationViewModel.getLocation()
 
         locationViewModel.listCoffeeShopLiveData.observe(viewLifecycleOwner) { coffeeList ->
             for (coffeeShop in coffeeList) {

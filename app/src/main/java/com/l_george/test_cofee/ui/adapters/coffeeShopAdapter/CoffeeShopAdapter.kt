@@ -22,6 +22,14 @@ class CoffeeShopAdapter(private val listener: CoffeeShopClickListener) :
         fun bind(item: CoffeeShopModel) {
             with(binding) {
                 textName.text = item.name
+                if (item.distanceFromMe != null){
+                    textDistance.text = StringBuilder()
+                        .append(item.distanceFromMe.substringBefore('.'))
+                        .append(".")
+                        .append(item.distanceFromMe.substringAfter('.' ).substring(0,2))
+                        .append(" км")
+                }
+
                 cardItem.setOnClickListener {
                     listener.openCoffeeShop(item.id)
                 }
