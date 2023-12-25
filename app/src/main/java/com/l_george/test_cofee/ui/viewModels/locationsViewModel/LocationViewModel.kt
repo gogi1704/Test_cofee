@@ -1,6 +1,5 @@
 package com.l_george.test_cofee.ui.viewModels.locationsViewModel
 
-import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
