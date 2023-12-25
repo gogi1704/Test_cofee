@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_coffeeListFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_coffeeListFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"

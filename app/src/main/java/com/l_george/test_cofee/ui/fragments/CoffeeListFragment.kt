@@ -13,12 +13,14 @@ import com.l_george.test_cofee.R
 import com.l_george.test_cofee.app.CoffeeApp
 import com.l_george.test_cofee.databinding.FragmentCoffeeListBinding
 import com.l_george.test_cofee.ui.adapters.coffeeShopAdapter.CoffeeShopAdapter
+import com.l_george.test_cofee.ui.adapters.coffeeShopAdapter.CoffeeShopClickListener
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModel
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModelFactory
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModel
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModelFactory
 import com.l_george.test_cofee.utils.ApiError
 import com.l_george.test_cofee.utils.AuthError
+import com.l_george.test_cofee.utils.BUNDLE_LOCATION_ID
 import com.l_george.test_cofee.utils.NetworkError
 import com.l_george.test_cofee.utils.UnknownError
 import com.l_george.test_cofee.utils.makeToast
@@ -46,7 +48,15 @@ class CoffeeListFragment : Fragment() {
         locationViewModel =
             ViewModelProvider(this, locationViewModelFactory)[LocationViewModel::class.java]
 
-        adapter = CoffeeShopAdapter()
+        adapter = CoffeeShopAdapter(object : CoffeeShopClickListener {
+            override fun openCoffeeShop(coffeeShopId: Int) {
+                findNavController().navigate(
+                    R.id.action_coffeeListFragment_to_menuFragment,
+                    Bundle().apply {
+                        putInt(BUNDLE_LOCATION_ID, coffeeShopId)
+                    })
+            }
+        })
     }
 
     override fun onCreateView(
@@ -79,8 +89,8 @@ class CoffeeListFragment : Fragment() {
             }
 
             locationViewModel.errorLiveData.observe(viewLifecycleOwner) {
-                if (it != null){
-                    if (it is AuthError){
+                if (it != null) {
+                    if (it is AuthError) {
                         findNavController().navigate(R.id.authFragment)
                     }
                     requireContext().makeToast(it.message)
@@ -94,8 +104,6 @@ class CoffeeListFragment : Fragment() {
 
         }
     }
-
-
 
 
 }

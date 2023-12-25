@@ -7,14 +7,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.l_george.test_cofee.data.models.CoffeeShopModel
 import com.l_george.test_cofee.databinding.ItemCoffeeLayoutBinding
 
-class CoffeeShopAdapter() :
+interface CoffeeShopClickListener {
+    fun openCoffeeShop(coffeeShopId: Int)
+}
+
+class CoffeeShopAdapter(private val listener: CoffeeShopClickListener) :
     ListAdapter<CoffeeShopModel, CoffeeShopAdapter.CoffeeShopViewHolder>(CoffeeShopCallBack()) {
 
-    class CoffeeShopViewHolder(private val binding: ItemCoffeeLayoutBinding) :
+    class CoffeeShopViewHolder(
+        private val binding: ItemCoffeeLayoutBinding,
+        private val listener: CoffeeShopClickListener
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CoffeeShopModel) {
             with(binding) {
                 textName.text = item.name
+                cardItem.setOnClickListener {
+                    listener.openCoffeeShop(item.id)
+                }
             }
         }
     }
@@ -22,7 +32,7 @@ class CoffeeShopAdapter() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoffeeShopViewHolder {
         val binding =
             ItemCoffeeLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CoffeeShopViewHolder(binding)
+        return CoffeeShopViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: CoffeeShopViewHolder, position: Int) {
