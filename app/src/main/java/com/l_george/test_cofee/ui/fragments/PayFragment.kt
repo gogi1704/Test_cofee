@@ -46,7 +46,7 @@ class PayFragment : Fragment() {
                 menuViewModel.removeFromBag(menuModel)
             }
 
-        })
+        } , requireContext())
         with(binding) {
             recyclerBag.adapter = adapter
         }

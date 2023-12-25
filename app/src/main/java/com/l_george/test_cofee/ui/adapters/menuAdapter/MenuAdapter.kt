@@ -1,5 +1,6 @@
 package com.l_george.test_cofee.ui.adapters.menuAdapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -14,12 +15,13 @@ interface MenuClickListener {
     fun removeFromBag(menuModel: MenuModel)
 }
 
-class MenuAdapter(private val listener: MenuClickListener) :
+class MenuAdapter(private val listener: MenuClickListener, private val context: Context) :
     ListAdapter<MenuModel, MenuAdapter.MenuViewHolder>(MenuCallBack()) {
 
     class MenuViewHolder(
         private val binding: ItemMenuLayoutBinding,
-        private val listener: MenuClickListener
+        private val listener: MenuClickListener,
+        private val context: Context
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MenuModel) {
@@ -29,12 +31,15 @@ class MenuAdapter(private val listener: MenuClickListener) :
                     .timeout(1_000)
                     .into(itemImage)
                 itemName.text = item.name
-                itemPrice.text = item.price.toString()
+                itemPrice.text = StringBuilder()
+                    .append(item.price)
+                    .append(" ")
+                    .append(context.getString(R.string.rub))
 
                 buttonMinus.setOnClickListener {
                     val countNow = textCount.text.toString().toInt()
                     if (countNow > 0) {
-                        textCount.text=StringBuilder()
+                        textCount.text = StringBuilder()
                             .append(countNow - 1)
                         listener.removeFromBag(item)
                     }
@@ -53,7 +58,7 @@ class MenuAdapter(private val listener: MenuClickListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val binding =
             ItemMenuLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MenuViewHolder(binding, listener)
+        return MenuViewHolder(binding, listener, context)
     }
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {

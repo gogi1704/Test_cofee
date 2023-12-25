@@ -39,7 +39,7 @@ class MenuFragment : Fragment() {
             override fun removeFromBag(menuModel: MenuModel) {
                 menuViewModel.removeFromBag(menuModel)
             }
-        })
+        } , requireContext())
     }
 
     override fun onCreateView(

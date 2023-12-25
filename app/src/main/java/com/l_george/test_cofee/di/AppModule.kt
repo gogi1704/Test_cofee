@@ -30,8 +30,11 @@ class AppModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun provideMenuViewModelFactory(menuRepository: MenuRepository): MenuViewModelFactory =
-        MenuViewModelFactory(menuRepository)
+    fun provideMenuViewModelFactory(
+        menuRepository: MenuRepository,
+        authRepository: AuthRepository
+    ): MenuViewModelFactory =
+        MenuViewModelFactory(menuRepository, authRepository)
 
     @Provides
     @Singleton

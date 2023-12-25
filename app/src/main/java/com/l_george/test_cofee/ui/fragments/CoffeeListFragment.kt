@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.l_george.test_cofee.R
@@ -18,16 +17,15 @@ import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModel
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModelFactory
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModel
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModelFactory
-import com.l_george.test_cofee.utils.ApiError
 import com.l_george.test_cofee.utils.AuthError
 import com.l_george.test_cofee.utils.BUNDLE_LOCATION_ID
-import com.l_george.test_cofee.utils.NetworkError
-import com.l_george.test_cofee.utils.UnknownError
 import com.l_george.test_cofee.utils.makeToast
 import javax.inject.Inject
 
 
 class CoffeeListFragment : Fragment() {
+
+
     private lateinit var binding: FragmentCoffeeListBinding
 
     @Inject
@@ -105,5 +103,5 @@ class CoffeeListFragment : Fragment() {
         }
     }
 
-
 }
+
