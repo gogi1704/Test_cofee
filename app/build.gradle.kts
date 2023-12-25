@@ -94,4 +94,9 @@ dependencies {
 
     //Map kit
     implementation("com.yandex.android:maps.mobile:4.4.0-lite")
+
+    //Glide
+
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
 }

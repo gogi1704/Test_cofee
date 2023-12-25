@@ -24,4 +24,18 @@ class MenuViewModel @Inject constructor(private val menuRepository: MenuReposito
 
     }
 
+    fun addToBag(menuModel: MenuModel) {
+        menuRepository.addToBag(menuModel)
+    }
+
+    fun removeFromBag(menuModel: MenuModel) {
+        menuRepository.removeFromBag(menuModel)
+    }
+
+    fun getResult(): List<Pair<MenuModel, Int>> {
+        val i = menuRepository.getResult()
+        i
+        return menuRepository.getResult()
+    }
+
 }

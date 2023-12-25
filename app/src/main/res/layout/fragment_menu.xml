@@ -14,17 +14,17 @@
         tools:listitem="@layout/item_menu_layout"
         android:layout_marginStart="16dp"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/button_to_map"
+        app:layout_constraintBottom_toTopOf="@+id/button_to_pay"
         app:layout_constraintTop_toTopOf="parent"
         app:spanCount="2" />
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_to_map"
+        android:id="@+id/button_to_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
-        android:text="@string/in_map"
+        android:text="@string/go_to_pay"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
