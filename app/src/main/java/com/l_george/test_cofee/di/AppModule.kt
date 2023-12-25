@@ -22,8 +22,11 @@ class AppModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun provideLocationViewModelFactory(locationRepository: LocationsRepository): LocationViewModelFactory =
-        LocationViewModelFactory(locationRepository)
+    fun provideLocationViewModelFactory(
+        locationRepository: LocationsRepository,
+        authRepository: AuthRepository
+    ): LocationViewModelFactory =
+        LocationViewModelFactory(locationRepository, authRepository)
 
     @Provides
     @Singleton

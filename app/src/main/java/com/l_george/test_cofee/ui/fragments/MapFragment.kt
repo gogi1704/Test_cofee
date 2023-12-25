@@ -23,7 +23,9 @@ import com.l_george.test_cofee.app.CoffeeApp
 import com.l_george.test_cofee.databinding.FragmentMapBinding
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModel
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModelFactory
+import com.l_george.test_cofee.utils.AuthError
 import com.l_george.test_cofee.utils.BUNDLE_LOCATION_ID
+import com.l_george.test_cofee.utils.makeToast
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
@@ -109,6 +111,15 @@ class MapFragment : Fragment() {
             }
         }
 
+        locationViewModel.errorLiveData.observe(viewLifecycleOwner) {
+            if (it != null){
+                if (it is AuthError){
+                    findNavController().navigate(R.id.authFragment)
+                }
+               requireContext().makeToast(it.message)
+            }
+        }
+
         return binding.root
     }
 
@@ -119,20 +130,7 @@ class MapFragment : Fragment() {
     }
 
 
-    private fun createDialog(title: String, coffeeShopId: Int) {
-        AlertDialog.Builder(requireContext())
-            .setIcon(R.drawable.icon_point)
-            .setTitle(title)
-            .setMessage(getString(R.string.coffee_menu_title))
-            .setPositiveButton(getString(R.string.yes)) { dialog, _ ->
-                findNavController()//navigate with id todo
-                dialog.dismiss()
-            }
-            .setNegativeButton(getString(R.string.dismiss)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
-    }
+
 
     private fun getPlaceMarkIcon(title: String): Bitmap {
         val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.icon_point)

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.l_george.test_cofee.R
@@ -16,6 +17,11 @@ import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModel
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModelFactory
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModel
 import com.l_george.test_cofee.ui.viewModels.locationsViewModel.LocationViewModelFactory
+import com.l_george.test_cofee.utils.ApiError
+import com.l_george.test_cofee.utils.AuthError
+import com.l_george.test_cofee.utils.NetworkError
+import com.l_george.test_cofee.utils.UnknownError
+import com.l_george.test_cofee.utils.makeToast
 import javax.inject.Inject
 
 
@@ -50,7 +56,6 @@ class CoffeeListFragment : Fragment() {
         binding = FragmentCoffeeListBinding.inflate(layoutInflater, container, false)
         (requireActivity() as MainActivity).topBarSettings(true, getString(R.string.coffee_title))
 
-
         requireActivity().findViewById<ImageButton>(R.id.button_back).apply {
             setOnClickListener {
                 authViewModel.logOut()
@@ -73,11 +78,24 @@ class CoffeeListFragment : Fragment() {
                 adapter.submitList(it)
             }
 
+            locationViewModel.errorLiveData.observe(viewLifecycleOwner) {
+                if (it != null){
+                    if (it is AuthError){
+                        findNavController().navigate(R.id.authFragment)
+                    }
+                    requireContext().makeToast(it.message)
+                }
+            }
+
             buttonToMap.setOnClickListener {
                 findNavController().navigate(R.id.action_coffeeListFragment_to_mapFragment)
             }
+
+
         }
     }
+
+
 
 
 }
