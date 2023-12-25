@@ -1,23 +1,19 @@
 package com.l_george.test_cofee.ui.fragments
 
-import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.l_george.test_cofee.R
 import com.l_george.test_cofee.app.CoffeeApp
 import com.l_george.test_cofee.databinding.FragmentMapBinding
@@ -29,11 +25,8 @@ import com.l_george.test_cofee.utils.BUNDLE_LOCATION_ID
 import com.l_george.test_cofee.utils.makeToast
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
-import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
-import com.yandex.mapkit.map.MapObject
 import com.yandex.mapkit.map.MapObjectCollection
-import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
 import javax.inject.Inject
@@ -86,16 +79,14 @@ class MapFragment : Fragment() {
                 collections.addPlacemark().apply {
                     geometry = coffeeShop.point
                     setIcon(ImageProvider.fromBitmap(getPlaceMarkIcon(coffeeShop.name)))
-                    addTapListener(object : MapObjectTapListener {
-                        override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
-                            findNavController().navigate(
-                                R.id.action_mapFragment_to_menuFragment,
-                                Bundle().apply {
-                                    putInt(BUNDLE_LOCATION_ID, coffeeShop.id)
-                                })
-                            return true
-                        }
-                    })
+                    addTapListener { _, _ ->
+                        findNavController().navigate(
+                            R.id.action_mapFragment_to_menuFragment,
+                            Bundle().apply {
+                                putInt(BUNDLE_LOCATION_ID, coffeeShop.id)
+                            })
+                        true
+                    }
                 }
             }
             if (coffeeList.isNotEmpty()) {
@@ -113,11 +104,11 @@ class MapFragment : Fragment() {
         }
 
         locationViewModel.errorLiveData.observe(viewLifecycleOwner) {
-            if (it != null){
-                if (it is AuthError){
+            if (it != null) {
+                if (it is AuthError) {
                     findNavController().navigate(R.id.authFragment)
                 }
-               requireContext().makeToast(it.message)
+                requireContext().makeToast(it.message)
             }
         }
 
@@ -129,8 +120,6 @@ class MapFragment : Fragment() {
         MapKitFactory.getInstance().onStop()
         super.onStop()
     }
-
-
 
 
     private fun getPlaceMarkIcon(title: String): Bitmap {

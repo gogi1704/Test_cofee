@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,6 +15,8 @@ import com.l_george.test_cofee.data.models.UserModel
 import com.l_george.test_cofee.databinding.FragmentAuthBinding
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModel
 import com.l_george.test_cofee.ui.viewModels.authViewModel.AuthViewModelFactory
+import com.l_george.test_cofee.utils.AuthError
+import com.l_george.test_cofee.utils.makeToast
 import javax.inject.Inject
 
 class AuthFragment : Fragment() {
@@ -43,7 +44,7 @@ class AuthFragment : Fragment() {
 
         with(binding) {
 
-            inputEmail.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            inputEmail.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus && !inputEmail.isEmailValid()) {
                     textInputLayoutEmail.error = getString(R.string.check_email_error)
                 } else {
@@ -51,7 +52,7 @@ class AuthFragment : Fragment() {
                 }
             }
 
-            inputPassword.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            inputPassword.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus && inputPassword.text.toString().length < 5) {
                     textInputLayoutPassword.error = getString(R.string.check_pass_error)
                 } else {
@@ -60,7 +61,7 @@ class AuthFragment : Fragment() {
             }
 
 
-            inputPasswordRepeat.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            inputPasswordRepeat.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus && inputPasswordRepeat.text.toString() != inputPassword.text.toString()) {
                     textInputLayoutPasswordRepeat.error = getString(R.string.check_pass_repeat)
                 } else {
@@ -109,6 +110,15 @@ class AuthFragment : Fragment() {
             authViewModel.isAuthLiveData.observe(viewLifecycleOwner) {
                 if (it != null && it) {
                     findNavController().navigate(R.id.action_authFragment_to_coffeeListFragment)
+                }
+            }
+
+            authViewModel.errorLiveData.observe(viewLifecycleOwner){
+                if (it != null) {
+                    if (it is AuthError) {
+                        findNavController().navigate(R.id.authFragment)
+                    }
+                    requireContext().makeToast(it.message)
                 }
             }
         }

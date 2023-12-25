@@ -16,7 +16,9 @@ import com.l_george.test_cofee.ui.adapters.menuAdapter.MenuAdapter
 import com.l_george.test_cofee.ui.adapters.menuAdapter.MenuClickListener
 import com.l_george.test_cofee.ui.viewModels.menuViewModel.MenuViewModel
 import com.l_george.test_cofee.ui.viewModels.menuViewModel.MenuViewModelFactory
+import com.l_george.test_cofee.utils.AuthError
 import com.l_george.test_cofee.utils.BUNDLE_LOCATION_ID
+import com.l_george.test_cofee.utils.makeToast
 import javax.inject.Inject
 
 class MenuFragment : Fragment() {
@@ -70,6 +72,15 @@ class MenuFragment : Fragment() {
 
             buttonToPay.setOnClickListener {
                 findNavController().navigate(R.id.action_menuFragment_to_payFragment)
+            }
+
+            menuViewModel.errorLiveData.observe(viewLifecycleOwner){
+                if (it != null) {
+                    if (it is AuthError) {
+                        findNavController().navigate(R.id.authFragment)
+                    }
+                    requireContext().makeToast(it.message)
+                }
             }
         }
     }

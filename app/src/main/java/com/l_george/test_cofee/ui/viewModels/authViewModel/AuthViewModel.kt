@@ -7,7 +7,6 @@ import com.l_george.test_cofee.data.models.UserModel
 import com.l_george.test_cofee.data.repository.AuthRepository
 import com.l_george.test_cofee.utils.ApiError
 import com.l_george.test_cofee.utils.AppError
-import com.l_george.test_cofee.utils.AuthError
 import com.l_george.test_cofee.utils.NetworkError
 import com.l_george.test_cofee.utils.UnknownError
 import kotlinx.coroutines.launch

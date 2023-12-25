@@ -1,10 +1,8 @@
 package com.l_george.test_cofee.utils
 
-sealed class AppError(override var message:String) : RuntimeException() {
+sealed class AppError(override var message:String) : RuntimeException()
 
-}
-
-class NetworkError() : AppError(NETWORK_ERROR_MESSAGE)
+class NetworkError : AppError(NETWORK_ERROR_MESSAGE)
 class UnknownError : AppError(UNKNOWN_ERROR_MESSAGE)
 class ApiError : AppError(API_ERROR_MESSAGE)
 class AuthError : AppError(AUTH_ERROR_MESSAGE)

@@ -11,7 +11,6 @@ import com.l_george.test_cofee.utils.AppError
 import com.l_george.test_cofee.utils.AuthError
 import com.l_george.test_cofee.utils.NetworkError
 import com.l_george.test_cofee.utils.UnknownError
-import com.yandex.mapkit.geometry.Point
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,7 +37,7 @@ class LocationViewModel @Inject constructor(
     val errorLiveData = MutableLiveData(errorState)
 
 
-    fun getLocation() {
+    private fun getLocation() {
         viewModelScope.launch {
             try {
                 errorState = null
